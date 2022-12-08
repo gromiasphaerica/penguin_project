@@ -57,7 +57,7 @@ penguin_lm <- lm(culmen_length_mm ~ body_mass_g, data = penguins_clean)
 summary(penguin_lm) 
 
 ```
-p value = <2e-16; therefore, body mass has a significant effect on culmen length in these penguin species
+p value = <2e-16, which is significantly lower than 0.05; therefore, body mass has a significant effect on culmen length in these penguin species
 
 
 Create a scatter plot visualising this linear regression model
