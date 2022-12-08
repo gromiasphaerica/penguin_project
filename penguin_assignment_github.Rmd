@@ -1,0 +1,80 @@
+---
+title: "penguin_assignment_2_test"
+Purpose of this script: "Load and clean penguin data, run a statistical test on it before plotting and saving a figure of the data"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+Loading the data
+```{r}
+#set the working directory -- where R will look for files and folders. 
+getwd()
+setwd()
+
+#load the necessary packages from my file
+source("functions/libraries.r")
+
+#load functions from my files
+source("functions/clean_columns.r")
+source("functions/plotting.r")
+
+#load the raw penguin data
+penguins_raw <- read.csv("data_raw/penguins_raw.csv")
+
+```
+
+Cleaning the data
+```{r}
+#call the cleaning function we created to clean our raw penguin data by fixing column names, removing empty rows (NA) and removing "comment" and "delta" columns
+penguins_clean <- clean_columns(penguins_raw)
+names(penguins_clean)
+
+#save the clean data into our data_clean folder within the directory
+write.csv(penguins_clean,"data_clean/penguins_clean.csv")
+
+```
+
+Removing NAs from the clean data
+```{r}
+#call the function that removes rows containing NAs from the culmen_length and body_mass-g columns and subsets this data
+penguins_NA <- remove_NA(penguins_clean)
+head(penguins_NA)
+
+```
+
+Running a statistical test
+```{r}
+#Linear regression model looking at the relationship between CULMENLENGTH and BODYMASS [Does body mass affect culmen length?]
+
+#check if the variables correctly are non-categorical (output should = FALSE)
+is.factor(penguins_clean$culmen_length_mm) #FALSE
+is.factor(penguins_clean$body_mass_g) #FALSE
+
+#use a simple regression model to test this relationship
+penguin_lm <- lm(culmen_length_mm ~ body_mass_g, data = penguins_clean)
+
+#check results of the linear model
+summary(penguin_lm) 
+
+```
+p value = <2e-16; therefore, body mass has a significant effect on culmen length in these penguin species
+
+
+Create a scatter plot visualising this linear regression model
+```{r}
+#call in the plotting function to create a plot visualising this linear regression model
+lm_graph <- plot_length_mass(penguins_NA)
+lm_graph
+
+```
+
+Save the figure as a vector image
+```{r}
+#call in a function to save the current figure as a vector image in the figures folder within our directory
+save_lm_plot_svg(penguins_NA, 
+                      "figures/lm_vector.svg", 
+                      size = 15, scaling = 1)
+```
+
+
+
