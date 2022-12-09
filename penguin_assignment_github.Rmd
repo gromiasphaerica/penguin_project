@@ -1,16 +1,15 @@
 ---
-title: "penguin_assignment_2_test"
+title: "penguin_assignment_github"
 Purpose of this script: "Load and clean penguin data, run a statistical test on it before plotting and saving a figure of the data"
 output: html_document
 date: "`r Sys.Date()`"
 ---
 
-Loading the data
-```{r}
-#set the working directory -- where R will look for files and folders. 
-getwd()
+set the working directory -- where R will look for files and folders. 
 setwd()
 
+Loading the data
+```{r}
 #load the necessary packages from my file
 source("functions/libraries.r")
 
