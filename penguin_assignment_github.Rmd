@@ -56,7 +56,8 @@ penguin_lm <- lm(culmen_length_mm ~ body_mass_g, data = penguins_clean)
 summary(penguin_lm) 
 
 ```
-p value = <2e-16, which is significantly lower than 0.05; therefore, there is a statistically significant positive association between body mass and culmen length in these penguin species
+The p-value obtained is less than our chosen alpha value of 0.05 (p=<2e-16), meaning there is a statistically significant positive association between between body mass and culmen length in these penguin species.
+The fitted regression equation is: 27 + 0.0041*(bodymass), meaning there is a 0.0041 unit increase in culmen length with each unit increase in body mass.
 
 
 Create a scatter plot visualising this linear regression model
